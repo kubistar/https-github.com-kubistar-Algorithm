@@ -1,3 +1,11 @@
+/*
+### 2️⃣ 27160번: 할리갈리
+
+난이도: 브론즈
+
+분류: 문자열, 해시 맵 (딕셔너리)
+*/
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
