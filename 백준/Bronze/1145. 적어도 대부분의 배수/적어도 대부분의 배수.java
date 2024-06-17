@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -8,7 +9,7 @@ public class Main {
         return Math.abs(x * y) / gcd(x, y);
     }
 
-    // 두 수의 최대공약수를 계산하는 함수
+    // 두 수의 최대공약수를 계산하는 함수 (유클리드 호제법 사용)
     public static int gcd(int x, int y) {
         if (y == 0) {
             return x;
@@ -63,11 +64,11 @@ public class Main {
     }
 
     // 메인 함수
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         
         // 입력: 다섯 개의 자연수를 입력받음
-        List<Integer> numbers = Arrays.stream(scanner.nextLine().split(" "))
+        List<Integer> numbers = Arrays.stream(reader.readLine().split(" "))
                                       .map(Integer::parseInt)
                                       .collect(Collectors.toList());
         
