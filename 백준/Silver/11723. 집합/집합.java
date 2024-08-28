@@ -1,3 +1,12 @@
+/*
+연산의 수 M (1 ≤ M ≤ 3,000,000)
+둘째 줄부터 M개의 줄에 수행해야 하는 연산이 한 줄에 하나씩 주어짐
+각 연산은 add x, remove x, check x, toggle x, all, empty 중 하나
+
+*/
+
+
+
 import java.io.*;
 import java.util.*;
 
@@ -6,7 +15,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();  
         
-        int M = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());  // 연산의 수 
         HashSet<Integer> set = new HashSet<>();  
 
         for (int i = 0; i < M; i++) {
