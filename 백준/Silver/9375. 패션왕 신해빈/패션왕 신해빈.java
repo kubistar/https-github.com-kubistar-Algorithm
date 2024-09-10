@@ -9,6 +9,19 @@
 
 출력
 각 테스트 케이스에 대해 해빈이가 알몸이 아닌 상태로 의상을 입을 수 있는 경우의 수
+
+의상 종류별로 그룹화:
+headgear 종류: hat, turban → 2개의 아이템
+eyewear 종류: sunglasses → 1개의 아이템
+
+각 의상 종류별 경우의 수 계산:
+headgear 종류에서 입을 수 있는 경우의 수: 입지 않음, hat, turban → 3가지 경우
+eyewear 종류에서 입을 수 있는 경우의 수: 입지 않음, sunglasses → 2가지 경우
+
+전체 조합 경우의 수 계산:
+headgear의 경우의 수(3) × eyewear의 경우의 수(2) = 6
+
+아무것도 입지 않은 경우 제외:6 - 1 = 5
 */
 
 import java.io.*;
