@@ -1,46 +1,58 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+/*
+최소 힙을 이용하여 다음과 같은 연산을 지원하는 프로그램
+
+배열에 자연수 x를 넣는다.
+배열에서 가장 작은 값을 출력하고, 그 값을 배열에서 제거한다.
+프로그램은 처음에 비어있는 배열에서 시작하게 된다.
+
+입력
+첫째 줄에 연산의 개수 N(1 ≤ N ≤ 100,000)이 주어진다. 
+다음 N개의 줄에는 연산에 대한 정보를 나타내는 정수 x가 주어진다. 
+만약 x가 자연수라면 배열에 x라는 값을 넣는(추가하는) 연산이고, x가 0이라면 배열에서 가장 작은 값을 출력하고 
+그 값을 배열에서 제거하는 경우이다. x는 231보다 작은 자연수 또는 0이고, 음의 정수는 입력으로 주어지지 않는다.
+
+출력
+입력에서 0이 주어진 횟수만큼 답을 출력한다. 
+만약 배열이 비어 있는 경우인데 가장 작은 값을 출력하라고 한 경우에는 0을 출력하면 된다.
+
+
+*/
+
+
+
+import java.io.*;
 import java.util.PriorityQueue;
 
 public class Main {
-    public static void main(String[] args) {
-        // BufferedReader를 사용하여 입력을 받기 위해 준비
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        // StringBuilder를 사용하여 출력을 효율적으로 처리
+
         StringBuilder sb = new StringBuilder();
-        // PriorityQueue를 사용하여 최소 힙을 구현
+
+        // 최소 힙을 구현하기 위한 PriorityQueue
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
-        try {
-            // 첫 번째 줄에서 연산의 개수 N을 읽음
-            int N = Integer.parseInt(br.readLine());
-            
-            // N개의 명령을 처리하기 위해 반복
-            for (int i = 0; i < N; i++) {
-                // 각 명령어를 한 줄씩 읽어서 정수 x로 변환
-                int x = Integer.parseInt(br.readLine());
+        // 연산의 개수 N 입력
+        int N = Integer.parseInt(br.readLine());
 
-                // x가 0보다 크면 힙에 x를 추가
-                if (x > 0) {
-                    minHeap.offer(x);
+        // N개의 연산에 대해 처리
+        for (int i = 0; i < N; i++) {
+            int x = Integer.parseInt(br.readLine());
+
+            if (x == 0) {
+                // 힙이 비어 있으면 0 추가
+                if (minHeap.isEmpty()) {
+                    sb.append("0\n");
                 } else {
-                    // x가 0이면 힙에서 최소값을 꺼내 출력
-                    if (minHeap.isEmpty()) {
-                        // 힙이 비어 있으면 0을 출력
-                        sb.append(0).append('\n');
-                    } else {
-                        // 힙이 비어 있지 않으면 최소값을 꺼내어 출력
-                        sb.append(minHeap.poll()).append('\n');
-                    }
+                    // 가장 작은 값 출력 후 제거
+                    sb.append(minHeap.poll()).append("\n");
                 }
+            } else {
+                // 자연수 x는 힙에 추가
+                minHeap.offer(x);
             }
-        } catch (IOException e) {
-            // 입출력 예외가 발생할 경우 스택 트레이스를 출력하여 디버깅
-            e.printStackTrace();
         }
-        
-        // 최종 결과를 한꺼번에 출력
+
         System.out.print(sb.toString());
     }
 }
