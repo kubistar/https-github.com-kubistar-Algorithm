@@ -18,6 +18,7 @@
 
 import java.io.*;
 import java.util.PriorityQueue;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -25,7 +26,14 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a); 
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(new Comparator<Integer>() {
+        @Override
+        public int compare(Integer a, Integer b) {
+            return b - a; // 내림차순 정렬
+            }
+        });
+
+
         for (int i = 0; i < N; i++) {
             int x = Integer.parseInt(br.readLine());
 
