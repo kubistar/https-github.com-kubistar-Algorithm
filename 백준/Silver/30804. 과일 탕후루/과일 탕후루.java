@@ -1,50 +1,43 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        // BufferedReader를 이용한 입력 처리
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
-        // 과일 개수 N 입력
+        // 첫 번째 줄에서 과일의 개수 N 읽기
         int N = Integer.parseInt(br.readLine().trim());
         
-        // 과일 종류 배열
+        // 두 번째 줄에서 과일 종류 배열 읽기
         String[] input = br.readLine().trim().split(" ");
         int[] fruits = new int[N];
         for (int i = 0; i < N; i++) {
             fruits[i] = Integer.parseInt(input[i]);
         }
         
-        Deque<Integer> deque = new LinkedList<>();
+        // 슬라이딩 윈도우 알고리즘
         Map<Integer, Integer> fruitCount = new HashMap<>();
-        
+        int l = 0; // 왼쪽 포인터
         int maxLength = 0;
-        int l = 0;
         
         for (int r = 0; r < N; r++) {
-            // 오른쪽 끝에 과일 추가
-            int currentFruit = fruits[r];
-            deque.addLast(currentFruit);
-            fruitCount.put(currentFruit, fruitCount.getOrDefault(currentFruit, 0) + 1);
+            // 오른쪽 끝의 과일 추가
+            fruitCount.put(fruits[r], fruitCount.getOrDefault(fruits[r], 0) + 1);
             
-            // 과일 종류가 2종류를 초과하는 경우
+            // 과일 종류가 2종류를 초과하는 경우 왼쪽 포인터 이동
             while (fruitCount.size() > 2) {
-                int leftFruit = deque.pollFirst(); // 앞쪽 과일 제거
-                fruitCount.put(leftFruit, fruitCount.get(leftFruit) - 1);
-                
-                if (fruitCount.get(leftFruit) == 0) {
-                    fruitCount.remove(leftFruit);
+                fruitCount.put(fruits[l], fruitCount.get(fruits[l]) - 1);
+                if (fruitCount.get(fruits[l]) == 0) {
+                    fruitCount.remove(fruits[l]);
                 }
-                
-                l++; // 왼쪽 포인터 증가
+                l++;
             }
             
-            // 현재 덱의 길이로 최댓값 갱신
+            // 현재 윈도우의 길이로 최댓값 갱신
             maxLength = Math.max(maxLength, r - l + 1);
         }
         
