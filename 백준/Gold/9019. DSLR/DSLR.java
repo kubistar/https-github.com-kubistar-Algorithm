@@ -43,17 +43,18 @@ bfs
 
 */
 
-
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());  // 테스트 케이스 개수 입력
+
         for (int t = 0; t < T; t++) {
-            int A = sc.nextInt();
-            int B = sc.nextInt();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int A = Integer.parseInt(st.nextToken());  // A 입력
+            int B = Integer.parseInt(st.nextToken());  // B 입력
             System.out.println(bfs(A, B));
         }
     }
@@ -107,4 +108,3 @@ public class Main {
         }
     }
 }
-
