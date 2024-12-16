@@ -9,8 +9,23 @@ fibonacci 함수가 호출된 횟수를 출력한다.
 T(0)=1: fibonacci(0)은 한 번 호출
 T(1)=1: fibonacci(1)도 한 번 호출
 
-n >= 2
-T(n)=T(n−1)+T(n−2)
+n = 2
+fibonacci(2) 자체 호출: 1번
+fibonacci(1) 호출: 1번
+fibonacci(0) 호출: 1번
+3번 
+T(2)=T(1)+T(0)+1 = 3
+
+n = 3
+fibonacci(3) 자체 호출: 1번
+fibonacci(2) 호출: 1번
+fibonacci(1) 호출: 2번 (fibonacci(3)에서 1번, fibonacci(2)에서 1번 호출)
+fibonacci(0) 호출: 1번
+5
+T(3)=T(2)+T(1)+1 = 5
+
+T(n)=T(n−1)+T(n−2)+1
+
 */
 
 import java.io.BufferedReader;
