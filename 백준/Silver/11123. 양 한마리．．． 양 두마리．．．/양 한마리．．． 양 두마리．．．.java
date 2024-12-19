@@ -13,95 +13,67 @@ H는 그리드의 높이이고, W는 그리드의 너비이다.
 
 */
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-class Main {
-    static int N, M;
-    static int[][] map;
-    static int ans;
-
-    static int[] dy = {1, -1, 0, 0};
-    static int[] dx = {0, 0, 1, -1};
-
-    static class Node {
-        int y; int x;
-
-        Node (int y, int x){
-            this.y = y; this.x = x;
-        }
-    }
+public class Main {
+    static int H, W;
+    static char[][] grid;
     static boolean[][] visited;
-    public static void main(String[] args) throws Exception {
+    static int[] dx = {-1, 1, 0, 0}; // 상하좌우 
+    static int[] dy = {0, 0, -1, 1};
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int T = Integer.parseInt(br.readLine());
-
-        for(int t=0; t<T; ++t) {
-            ans = 0;
+        int T = Integer.parseInt(br.readLine()); // 테스트 케이스 수
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while (T-- > 0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            N = Integer.parseInt(st.nextToken());
-            M = Integer.parseInt(st.nextToken());
-
-            map = new int[N+1][M+1];
-            visited = new boolean[N+1][M+1];
-
-            for(int i=0; i<N; ++i) {
-                String line = br.readLine();
-
-                for(int j=0; j<M; ++j) {
-                    if(line.charAt(j) == '#') {
-                        map[i][j] = 1; // 양
-                    } else {
-                        map[i][j] = 0;
+            H = Integer.parseInt(st.nextToken());
+            W = Integer.parseInt(st.nextToken());
+            
+            grid = new char[H][W];
+            visited = new boolean[H][W];
+            
+            for (int i = 0; i < H; i++) {
+                grid[i] = br.readLine().toCharArray();
+            }
+            
+            int sheepGroups = 0; // 양 무리의 수
+            for (int i = 0; i < H; i++) {
+                for (int j = 0; j < W; j++) {
+                    if (grid[i][j] == '#' && !visited[i][j]) {
+                        bfs(i, j); // 하나의 무리를 탐색
+                        sheepGroups++;
                     }
                 }
             }
-
-            for(int i=0; i<N; ++i) {
-                for(int j=0; j<M; ++j) {
-                    if(map[i][j] == 0) continue;
-                    if(visited[i][j]) continue;
-                    bfs(i, j);
-                    ans++;
-                }
-            }
-
-            bw.write(ans + "\n");
-
+            sb.append(sheepGroups).append("\n");
         }
-
-        bw.flush();
-
+        System.out.print(sb);
     }
 
-    static void bfs(int y, int x) {
-        Queue<Node> q = new LinkedList<>();
+    static void bfs(int x, int y) {
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{x, y});
+        visited[x][y] = true;
 
-        visited[y][x] = true;
-        q.add(new Node(y, x));
-
-        while(!q.isEmpty()) {
-            int cy = q.peek().y, cx = q.peek().x;
-            q.remove();
-
-            for(int i=0; i<4; ++i) {
-                int ny = cy+dy[i], nx = cx+dx[i];
-
-                if(ny > N || ny < 0 || nx > M || nx < 0) continue;
-                if(map[ny][nx] == 0) continue;
-                if(visited[ny][nx]) continue;
-
-                visited[ny][nx] = true;
-                q.add(new Node(ny, nx));
+        while (!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int cx = current[0];
+            int cy = current[1];
+            
+            for (int i = 0; i < 4; i++) { // 4방향 탐색
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+                
+                if (nx >= 0 && nx < H && ny >= 0 && ny < W && grid[nx][ny] == '#' && !visited[nx][ny]) {
+                    visited[nx][ny] = true;
+                    queue.add(new int[]{nx, ny});
+                }
             }
-
         }
     }
 }
