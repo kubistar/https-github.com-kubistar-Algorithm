@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -7,18 +8,23 @@ public class Main {
     static int maxResult = Integer.MIN_VALUE;
     static int minResult = Integer.MAX_VALUE;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        N = Integer.parseInt(br.readLine());
         numbers = new int[N];
+
+        // 숫자 배열 입력
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            numbers[i] = sc.nextInt();
+            numbers[i] = Integer.parseInt(st.nextToken());
         }
 
+        // 연산자 배열 입력
         operators = new int[4]; // +, -, *, /
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < 4; i++) {
-            operators[i] = sc.nextInt();
+            operators[i] = Integer.parseInt(st.nextToken());
         }
 
         // 백트래킹 시작
