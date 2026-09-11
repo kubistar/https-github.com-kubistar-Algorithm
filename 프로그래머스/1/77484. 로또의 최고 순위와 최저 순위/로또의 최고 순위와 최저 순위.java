@@ -1,9 +1,5 @@
-import java.util.HashSet;
-import java.util.Set;
-
-public class Solution {
+class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
-
         //민우가 산 로또 번호 6개 중 일부가 지워져서 0으로 표시됨
         //0은 "알 수 없는 숫자" — 아무 숫자로든 바뀔 수 있는 와일드카드
         //지워지지 않은 숫자는 그대로 확정된 값
@@ -20,17 +16,14 @@ public class Solution {
             if (l == 0) zeroCount++;
         }
 
-        // win_nums를 Set으로 변환
-        Set<Integer> winSet = new HashSet<>();
-        for (int w : win_nums) {
-            winSet.add(w);
-        }
-
         int matchCount = 0;
         for (int l : lottos) {
             if (l == 0) continue;
-            if (winSet.contains(l)) {
-                matchCount++;
+            for (int w : win_nums) {
+                if (l == w) {
+                    matchCount++;
+                    break;
+                }
             }
         }
 
@@ -52,4 +45,3 @@ public class Solution {
         }
     }
 }
-
